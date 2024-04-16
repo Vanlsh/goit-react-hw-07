@@ -1,18 +1,19 @@
-import Contact from "../Contact/Contact.jsx";
-import css from "./ContactList.module.css";
-
-import { selectContacts, selectNameFilter } from "../../redux/selectors.js";
 import { useSelector } from "react-redux";
 
+import {
+  selectContacts,
+  selectFilteredContacts,
+} from "../../redux/selectors.js";
+
+import Contact from "../Contact/Contact.jsx";
 import Notification from "../Notification/Notification.jsx";
+
+import css from "./ContactList.module.css";
 
 const ContactList = () => {
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectNameFilter);
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredContacts = useSelector(selectFilteredContacts);
 
   if (!contacts.length) return <Notification title={"No contacts yet"} />;
 
